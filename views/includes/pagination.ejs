@@ -1,0 +1,16 @@
+<section class="pagination">
+
+    <a class="<%= (hasPreviousPage) ? '' : 'disabled' %>" href="?page=<%= +currentPage - 1 %>"> ◀</a>
+
+    <a class="<%= (+currentPage === 1) ? 'active': '' %>" href="?page=1">1</a>
+
+    <% for(let i=2; i<numberOfPages; i++) { %>
+        <a class="<%= (+currentPage === i) ? 'active': '' %>" href="?page=<%= i %>"><%= i %></a>
+    <% } %>
+
+    <a class="<%= (+currentPage === numberOfPages) ? 'active': '' %>" href="?page=<%= numberOfPages %>"><%= numberOfPages %></a>
+
+
+    <a class="<%= (hasNextPage) ? '' : 'disabled' %>" href="?page=<%= +currentPage + 1 %>"> ▶ </a>
+
+</section>

@@ -29,6 +29,7 @@ form {
 
 .image img {
   height: 100%;
+  object-fit: cover;
 }
 
 .main-header {
@@ -225,6 +226,32 @@ form {
   color: white;
 }
 
+.pagination {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.pagination a {
+  text-decoration: none;
+  color: #00695c;
+  padding: 0.5rem;
+  border: 1px solid #00695c;
+  margin: 0 1 rem;
+}
+
+.pagination a:hover,
+.pagination a:active,
+.pagination a.active {
+  background: #00695c;
+  color: white;
+}
+
+.pagination a.disabled {
+  background: rgb(184, 184, 184);
+  color: rgb(41, 68, 68);
+  pointer-events: none;
+}
+
 @media (max-width: 767px) {
   .main-header__item-list {
     display: none;
@@ -255,6 +282,7 @@ form {
 .user-message--error {
   border-color: red;
   background: #ffb0b0;
+  color: #a30000;
 }
 
 @media screen and (min-width: 768px) {

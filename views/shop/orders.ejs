@@ -17,6 +17,7 @@
                             <li class="orders__products-item"><%= item.product.title %> (<%= item.quantity %>)</li>
                         <% }); %>
                     </ul>
+                    <a class="btn" href="/orders/<%= order._id %>"> Invoice </a>
                 </li>
             <% }); %>
         </ul>
