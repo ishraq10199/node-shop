@@ -7,8 +7,7 @@ const User = require("../models/user");
 
 const transporter = nodemailer.createTransport(
   new Transport({
-    apiKey:
-      "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",
+    apiKey: process.env.NODEMAILER_KEY,
   })
 );
 
