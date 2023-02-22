@@ -8,8 +8,9 @@
         <a class="<%= (+currentPage === i) ? 'active': '' %>" href="?page=<%= i %>"><%= i %></a>
     <% } %>
 
-    <a class="<%= (+currentPage === numberOfPages) ? 'active': '' %>" href="?page=<%= numberOfPages %>"><%= numberOfPages %></a>
-
+    <% if (+currentPage !== 1) { %>
+        <a class="<%= (+currentPage === numberOfPages) ? 'active': '' %>" href="?page=<%= numberOfPages %>"><%= numberOfPages %></a>
+    <% } %>
 
     <a class="<%= (hasNextPage) ? '' : 'disabled' %>" href="?page=<%= +currentPage + 1 %>"> ▶ </a>
 

@@ -1,11 +1,16 @@
+require("dotenv").config();
 const path = require("path");
-const http = require("http");
+const fs = require("fs");
+const https = require("https");
 const express = require("express");
 const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
 const csrf = require("csurf");
 const flash = require("connect-flash");
 const multer = require("multer");
+const helmet = require("helmet");
+const compression = require("compression");
+const morgan = require("morgan");
 
 const rootDir = require("./utils/path");
 
@@ -21,15 +26,30 @@ const mongoose = require("mongoose");
 
 const app = express();
 
+// --- SECURE HEADERS --- //
+app.use(helmet());
+
+// --- COMPRESS ASSETS --- //
+app.use(compression());
+
+// --- LOGGER --- //
+const accessLogStream = fs.createWriteStream(path.join(rootDir, "access.log"), {
+  flags: "a",
+});
+app.use(morgan("combined", { stream: accessLogStream }));
+
 // --- DATABASE --- //
-const MONGODB_URI =
-  "mongodb+srv://mongotest:mongotest@cluster0.oxhsijr.mongodb.net/";
+const MONGODB_URI = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0.oxhsijr.mongodb.net/${process.env.MONGO_DEFAULT_DATABASE}`;
 
 // --- SESSION STORAGE --- //
 const store = new MongoDBStore({
   uri: MONGODB_URI,
   collection: "sessions",
 });
+
+// --- SSL CERT FILE READ --- //
+// const privateKey = fs.readFileSync("server.key");
+// const certificate = fs.readFileSync("server.cert");
 
 // --- FILE STORAGE --- //
 const fileFilter = (req, file, cb) => {
@@ -133,6 +153,12 @@ mongoose.set("strictQuery", true);
 mongoose
   .connect(MONGODB_URI)
   .then((result) => {
-    app.listen(3000);
+    // --- SSL USAGE --- //
+    // https
+    //   .createServer({ key: privateKey, cert: certificate }, app)
+    //   .listen(process.env.PORT || 3000);
+
+    // --- HTTP ONLY --- //
+    app.listen(process.env.PORT || 3000);
   })
   .catch((err) => console.log(err));

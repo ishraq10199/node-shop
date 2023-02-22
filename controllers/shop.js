@@ -3,9 +3,7 @@ const path = require("path");
 const PDFDocument = require("pdfkit");
 
 // STRIPE SECRET KEY
-const stripe = require("stripe")(
-  "sk_test_51McNxJF6lnsEx3gVXNgu80x4Dz8A46YFqCbgQ4MapRoLL3Tc4a7fUsElTG1yZWYSlFJLgRxNDTHN8oRqzifxMAh400fO85amGN"
-);
+const stripe = require("stripe")(process.env.STRIPE_KEY);
 
 const rootdir = require("../utils/path");
 const Product = require("../models/product");
